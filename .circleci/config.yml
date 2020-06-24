@@ -5,4 +5,4 @@ workflows:
   main:
     jobs:
       - perl/build:
-          codecov: true
+          save-to-artifacts: true
