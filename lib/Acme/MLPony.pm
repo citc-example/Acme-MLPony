@@ -1,5 +1,7 @@
 package Acme::MLPony;
 
+# ABSTRACT: Write Perl code with My Little Ponies
+
 use strict;
 use warnings;
 
