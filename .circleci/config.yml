@@ -1,0 +1,7 @@
+version: 2.1
+orbs:
+  perl: circleci/perl@1.0.0
+workflows:
+  main:
+    jobs:
+      - perl/build
