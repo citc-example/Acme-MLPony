@@ -5,4 +5,7 @@ workflows:
   main:
     jobs:
       - perl/build:
-          save-to-artifacts: true
+          save-to-workspace: true
+      - perl/test-linux:
+          perl-version: "5.10"
+          requires: ["perl/build"]
