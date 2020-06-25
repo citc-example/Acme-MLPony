@@ -6,15 +6,13 @@ use warnings;
 use Test::More tests => 1;
 
 use File::Temp qw( tempdir );
-use File::Spec::Functions qw(:ALL);
-use Fatal qw( open close );
+use Path::Tiny qw( path );
 
 use Acme::MLPony qw(pony_file);
 
 my $dir = tempdir( CLEANUP => 1 );
-my $file = catfile($dir, "hi.pl");
-open my $outfh, ">:bytes", $file;
-print $outfh <<'SCRIPT';
+my $file = path($dir, "hi.pl");
+$file->spew_raw(<<'SCRIPT');
 #!/usr/bin/perl
 
 use strict;
@@ -22,15 +20,10 @@ use warnings;
 
 print "Hello, World.\n";
 SCRIPT
-close $outfh;
 
 pony_file($file);
 
-open my $infh, "<:bytes", $file;
-my $bytes = do { local $/; <$infh> };
-close $infh;
-
-is($bytes, <<'SCRIPT');
+is($file->slurp_raw, <<'SCRIPT');
 #!/usr/bin/perl
 use Acme::MLPony::Friendship;
 Ahuizotl, Capper, Ahuizotl, Capper, Big McIntosh, Babs Seed,
